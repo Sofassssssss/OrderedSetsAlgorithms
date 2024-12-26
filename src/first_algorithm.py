@@ -1,6 +1,6 @@
 import numpy as np
 from pandas import DataFrame
-# from get_graph_data_from_file import file_to_dataframe
+
 
 def calculate_heights(M: DataFrame) -> dict:
     # проверка исключений
@@ -11,7 +11,7 @@ def calculate_heights(M: DataFrame) -> dict:
     if M.shape[0] != M.shape[1]:
         raise ValueError("Ошибка: Матрица должна быть квадратной")
 
-    #алгоритм
+    # алгоритм
     M = M.copy()
     M['Height'] = np.nan
     heights = {}
