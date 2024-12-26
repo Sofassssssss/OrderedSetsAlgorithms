@@ -38,7 +38,7 @@ def get_algorithm_and_file_number(algorithm: None, file_number: None):
             print("Выход из программы.")
             break
         # TODO: add new graph files and change number of graphs here
-        if int(graph_number) < 4:
+        if int(graph_number) < 10:
             file_number = graph_number
         else:
             print("Файла с таким номером нет, введите существующий.")
