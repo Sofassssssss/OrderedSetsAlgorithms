@@ -1,12 +1,9 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from networkx import DiGraph
+from networkx import Graph
 
 
-def hierarchical_layout(graph: DiGraph) -> dict:
-    """
-    Создает иерархическую раскладку графа сверху вниз.
-    """
+def hierarchical_layout(graph: Graph) -> dict:
     # получаем уровни узлов
     levels = nx.get_node_attributes(graph, 'level')
 
@@ -25,7 +22,8 @@ def hierarchical_layout(graph: DiGraph) -> dict:
     return pos
 
 
-def draw_graph(graph: DiGraph, width: int, matrix_with_max_zero_rows: str):
+def save_and_return_graph_with_matrix_node_to_file(graph: Graph, width: int, matrix_with_max_zero_rows: str) -> str:
+    result_filename = "result.png"
     plt.figure(figsize=(15, 20))
     pos = hierarchical_layout(graph)
     nx.draw(graph, pos, with_labels=False, node_color='pink', edge_color='gray', font_size=10, node_size=3000)
@@ -33,4 +31,5 @@ def draw_graph(graph: DiGraph, width: int, matrix_with_max_zero_rows: str):
     plt.text(1, 1, f'Ширина графа равна {width}, её определяет матрица {matrix_with_max_zero_rows}',
              fontsize=24, ha='right', va='top', color='black',
              transform=plt.gca().transAxes)
-    plt.show()
+    plt.savefig(result_filename, dpi=300, bbox_inches='tight')
+    return result_filename
