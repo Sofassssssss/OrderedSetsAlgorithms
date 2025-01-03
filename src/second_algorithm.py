@@ -1,11 +1,11 @@
 import networkx as nx
 from pandas import DataFrame
-from networkx import DiGraph
+from networkx import Graph
 
 
-def calculate_graph_width(matrix: DataFrame) -> tuple[DiGraph, int, str]:
+def calculate_graph_width(matrix: DataFrame) -> tuple[Graph, int, str]:
     # инициализируем граф
-    graph = nx.DiGraph()
+    graph = nx.Graph()
 
     # добавляем корень графа
     root_name = "M"
