@@ -41,7 +41,6 @@ def correct_position_of_graph_nodes(heights: dict[str, int]) -> dict[str, tuple]
     return pos
 
 
-
 def build_graph(matrix: DataFrame, heights: dict[str, int]) -> [Graph, dict]:
     graph = nx.Graph()
 
@@ -79,7 +78,7 @@ def build_graph(matrix: DataFrame, heights: dict[str, int]) -> [Graph, dict]:
     return graph, pos
 
 
-def save_and_return_drawn_graph_with_heights_to_file(graph: Graph, pos) -> str:
+def save_and_return_drawn_graph_with_heights_to_file(graph: Graph, pos: dict, heights:dict[str, int]) -> str:
     result_filename = 'result.png'
 
     # рисуем граф
@@ -88,7 +87,9 @@ def save_and_return_drawn_graph_with_heights_to_file(graph: Graph, pos) -> str:
     # рисуем высоты узлов рядом с ними
     labels = {node: f"{node} ({data['height']})" for node, data in graph.nodes(data=True)}
     nx.draw_networkx_labels(graph, pos, labels, font_size=10, bbox=dict(facecolor='pink', edgecolor='none', boxstyle='round,pad=0.2'))
-
+    plt.text(1, 0, f'Длина упорядоченного множества равна {max(heights.values())}',
+             fontsize=16, ha='right', va='top', color='black',
+             transform=plt.gca().transAxes)
     plt.savefig(result_filename, dpi=300, bbox_inches='tight')
     plt.figure(figsize=(40, 40))
     plt.tight_layout()

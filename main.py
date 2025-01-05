@@ -65,7 +65,7 @@ def main():
     if algorithm == calculate_heights:
         result_heights = calculate_heights(graph_matrix)
         graph, pos = build_graph(graph_matrix, result_heights)
-        result_file_path = save_and_return_drawn_graph_with_heights_to_file(graph, pos)
+        result_file_path = save_and_return_drawn_graph_with_heights_to_file(graph, pos, result_heights)
     if algorithm == calculate_graph_width:
         graph_matrix, width, matrix_defining_width = calculate_graph_width(graph_matrix)
         result_file_path = save_and_return_graph_with_matrix_node_to_file(graph_matrix, width, matrix_defining_width)
