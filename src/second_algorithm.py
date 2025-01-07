@@ -1,11 +1,11 @@
 import networkx as nx
 from pandas import DataFrame
-from networkx import DiGraph
+from networkx import Graph
 
 
-def calculate_graph_width(matrix: DataFrame) -> tuple[DiGraph, int, str]:
+def calculate_graph_width(matrix: DataFrame) -> tuple[Graph, int, str]:
     # инициализируем граф
-    graph = nx.DiGraph()
+    graph = nx.Graph()
 
     # добавляем корень графа
     root_name = "M"
@@ -14,7 +14,8 @@ def calculate_graph_width(matrix: DataFrame) -> tuple[DiGraph, int, str]:
     # множество для отслеживания уже обработанных наборов удаленных элементов
     visited_removed_elements = []
 
-    # переменная для отслеживания максимального числа детей( то есть по сути ширины графа)
+    # переменная для отслеживания максимального числа детей(то есть по сути ширины графа),
+    # а также матрицы, определяющей ширину графа
     max_children = 0
     matrix_with_max_zero_rows = None
 

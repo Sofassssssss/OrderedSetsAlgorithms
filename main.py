@@ -1,7 +1,11 @@
-from first_algorithm import calculate_heights
-from second_algorithm import calculate_graph_width
-from get_graph_data_from_file import file_to_dataframe
-from visualization.second_algorithm_visualization import draw_graph
+import os
+
+from src.first_algorithm import calculate_heights
+from src.second_algorithm import calculate_graph_width
+from src.utils.get_graph_data_from_file import file_to_dataframe
+from src.visualization.second_algorithm_visualization import save_and_return_graph_with_matrix_node_to_file
+from src.visualization.first_algorithm_visualization import save_and_return_drawn_graph_with_heights_to_file, build_graph
+from src.utils.packaging_result_to_folder import package_result_to_folder
 
 
 def get_algorithm_and_file_number(algorithm: None, file_number: None):
@@ -27,7 +31,7 @@ def get_algorithm_and_file_number(algorithm: None, file_number: None):
             print("Если хотите выйти, нажмите Enter!")
 
     print("Введите номер графа, на котором хотите увидеть работу алгоритма "
-          "(доступные графы можно посмотреть в папке data): ")
+          "(доступные графы можно посмотреть в папке data/graphs): ")
     while file_number is None:
         graph_number = input()
         if not graph_number.isdigit():
@@ -37,8 +41,10 @@ def get_algorithm_and_file_number(algorithm: None, file_number: None):
         if graph_number == "":
             print("Выход из программы.")
             break
-        # TODO: add new graph files and change number of graphs here
-        if int(graph_number) < 10:
+
+        lst = os.listdir("../data/graphs")
+        number_files = len(lst)
+        if int(graph_number) < number_files:
             file_number = graph_number
         else:
             print("Файла с таким номером нет, введите существующий.")
@@ -55,15 +61,15 @@ def main():
           "1 - Алгоритм нахождения длины элементов у.м.\n"
           "2 - Алгоритм нахождения ширины у.м.")
     algorithm, file_number = get_algorithm_and_file_number(algorithm, file_number)
-    graph = file_to_dataframe(f"../data/graph{file_number}.txt")
+    graph_matrix = file_to_dataframe(f"../data/graphs_data/graph{file_number}.txt")
     if algorithm == calculate_heights:
-        result = calculate_heights(graph)
-        print(result)
-        # TODO: make visualization for first algorithm
+        result_heights = calculate_heights(graph_matrix)
+        graph, pos = build_graph(graph_matrix, result_heights)
+        result_file_path = save_and_return_drawn_graph_with_heights_to_file(graph, pos, result_heights)
     if algorithm == calculate_graph_width:
-        graph, width, matrix_defining_width = calculate_graph_width(graph)
-        draw_graph(graph, width, matrix_defining_width)
-        # TODO: make it so that result of algorithm and the original graph will saved to folder
+        graph_matrix, width, matrix_defining_width = calculate_graph_width(graph_matrix)
+        result_file_path = save_and_return_graph_with_matrix_node_to_file(graph_matrix, width, matrix_defining_width)
+    package_result_to_folder(f"../data/graphs/graph{file_number}.png", result_file_path)
 
 
 if __name__ == '__main__':
