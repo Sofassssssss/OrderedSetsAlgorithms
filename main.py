@@ -42,7 +42,7 @@ def get_algorithm_and_file_number(algorithm: None, file_number: None):
             print("Выход из программы.")
             break
 
-        lst = os.listdir("../data/graphs")
+        lst = os.listdir("data/graphs")
         number_files = len(lst)
         if int(graph_number) < number_files:
             file_number = graph_number
@@ -61,7 +61,7 @@ def main():
           "1 - Алгоритм нахождения длины элементов у.м.\n"
           "2 - Алгоритм нахождения ширины у.м.")
     algorithm, file_number = get_algorithm_and_file_number(algorithm, file_number)
-    graph_matrix = file_to_dataframe(f"../data/graphs_data/graph{file_number}.txt")
+    graph_matrix = file_to_dataframe(f"data/graphs_data/graph{file_number}.txt")
     if algorithm == calculate_heights:
         result_heights = calculate_heights(graph_matrix)
         graph, pos = build_graph(graph_matrix, result_heights)
@@ -69,7 +69,7 @@ def main():
     if algorithm == calculate_graph_width:
         graph_matrix, width, matrix_defining_width = calculate_graph_width(graph_matrix)
         result_file_path = save_and_return_graph_with_matrix_node_to_file(graph_matrix, width, matrix_defining_width)
-    package_result_to_folder(f"../data/graphs/graph{file_number}.png", result_file_path)
+    package_result_to_folder(f"data/graphs/graph{file_number}.png", result_file_path)
 
 
 if __name__ == '__main__':
