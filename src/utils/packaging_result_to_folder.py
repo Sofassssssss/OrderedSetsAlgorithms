@@ -3,7 +3,7 @@ import shutil
 
 
 def package_result_to_folder(source_graph_file_path: str, result_file_path: str):
-    folder_path = '../result'
+    folder_path = 'result'
 
     os.makedirs(folder_path, exist_ok=True)  # exist_ok=True не вызовет ошибку, если папка уже существует
 
