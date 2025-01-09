@@ -13,13 +13,13 @@ def get_algorithm_and_file_number(algorithm: None, file_number: None):
 
     while algorithm is None:
         number_of_algorithm = input()
-        if not number_of_algorithm.isdigit():
-            print("Чтобы выбрать алгоритм введите его номер.")
-            continue
-
         if number_of_algorithm == "":
             print("Выход из программы.")
             break
+
+        if not number_of_algorithm.isdigit():
+            print("Чтобы выбрать алгоритм введите его номер.")
+            continue
 
         if int(number_of_algorithm) == 1:
             algorithm = calculate_heights
@@ -34,13 +34,13 @@ def get_algorithm_and_file_number(algorithm: None, file_number: None):
           "(доступные графы можно посмотреть в папке data/graphs): ")
     while file_number is None:
         graph_number = input()
-        if not graph_number.isdigit():
-            print("Чтобы выбрать граф, введите его номер.")
-            continue
-
         if graph_number == "":
             print("Выход из программы.")
             break
+
+        if not graph_number.isdigit():
+            print("Чтобы выбрать граф, введите его номер.")
+            continue
 
         lst = os.listdir("data/graphs")
         number_files = len(lst)
@@ -61,6 +61,8 @@ def main():
           "1 - Алгоритм нахождения длины элементов у.м.\n"
           "2 - Алгоритм нахождения ширины у.м.")
     algorithm, file_number = get_algorithm_and_file_number(algorithm, file_number)
+    if file_number is None:
+        return
     graph_matrix = file_to_dataframe(f"data/graphs_data/graph{file_number}.txt")
     if algorithm == calculate_heights:
         result_heights = calculate_heights(graph_matrix)
